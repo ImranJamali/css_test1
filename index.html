@@ -1,0 +1,443 @@
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS MCQs Test</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f3f6fa;
+            color: #222;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+        }
+
+        h1 { text-align: center; margin-bottom: 8px; }
+        .info { text-align: center; color: #666; margin-bottom: 30px; }
+
+        .question {
+            margin-bottom: 22px;
+            padding: 18px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        .question h3 { margin: 0 0 12px; }
+
+        label {
+            display: block;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+
+        label:hover { background-color: #eef4fb; }
+
+        .correct {
+            background-color: #d9f5df !important;
+            border: 1px solid #4caf50;
+        }
+
+        .wrong {
+            background-color: #ffdede !important;
+            border: 1px solid #e53935;
+        }
+
+        .answer {
+            display: none;
+            margin-top: 10px;
+            padding: 8px;
+            font-weight: bold;
+            color: #1761a9;
+        }
+
+        button {
+            display: block;
+            margin: 30px auto 10px;
+            padding: 14px 35px;
+            border: none;
+            border-radius: 8px;
+            background-color: #1761a9;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:hover { background-color: #0f4d89; }
+
+        #result {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 2px solid #1761a9;
+            border-radius: 10px;
+            background-color: #eef5ff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>CSS MCQs Test</h1>
+    <p class="info">30 Questions | +1 Correct | -1 Wrong | 0 Unattempted</p>
+
+    <div id="result"></div>
+
+    <form id="quizForm">
+
+        <div class="question" data-answer="b">
+            <h3>1. Which property changes the text color?</h3>
+            <label><input type="radio" name="q1" value="a"> background</label>
+            <label><input type="radio" name="q1" value="b"> color</label>
+            <label><input type="radio" name="q1" value="c"> font-color</label>
+            <label><input type="radio" name="q1" value="d"> text-color</label>
+            <div class="answer">Correct Answer: B — color</div>
+        </div>
+
+        <div class="question" data-answer="c">
+            <h3>2. Which property changes the background color?</h3>
+            <label><input type="radio" name="q2" value="a"> color</label>
+            <label><input type="radio" name="q2" value="b"> bg-color</label>
+            <label><input type="radio" name="q2" value="c"> background-color</label>
+            <label><input type="radio" name="q2" value="d"> background-text</label>
+            <div class="answer">Correct Answer: C — background-color</div>
+        </div>
+
+        <div class="question" data-answer="a">
+            <h3>3. Which property creates space inside an element?</h3>
+            <label><input type="radio" name="q3" value="a"> padding</label>
+            <label><input type="radio" name="q3" value="b"> margin</label>
+            <label><input type="radio" name="q3" value="c"> border</label>
+            <label><input type="radio" name="q3" value="d"> gap</label>
+            <div class="answer">Correct Answer: A — padding</div>
+        </div>
+
+        <div class="question" data-answer="b">
+            <h3>4. Which property creates space outside an element?</h3>
+            <label><input type="radio" name="q4" value="a"> padding</label>
+            <label><input type="radio" name="q4" value="b"> margin</label>
+            <label><input type="radio" name="q4" value="c"> border</label>
+            <label><input type="radio" name="q4" value="d"> width</label>
+            <div class="answer">Correct Answer: B — margin</div>
+        </div>
+
+        <div class="question" data-answer="d">
+            <h3>5. Which property adds a border around an element?</h3>
+            <label><input type="radio" name="q5" value="a"> outline-color</label>
+            <label><input type="radio" name="q5" value="b"> edge</label>
+            <label><input type="radio" name="q5" value="c"> line</label>
+            <label><input type="radio" name="q5" value="d"> border</label>
+            <div class="answer">Correct Answer: D — border</div>
+        </div>
+
+        <div class="question" data-answer="c">
+            <h3>6. Which property makes corners rounded?</h3>
+            <label><input type="radio" name="q6" value="a"> corner</label>
+            <label><input type="radio" name="q6" value="b"> border-round</label>
+            <label><input type="radio" name="q6" value="c"> border-radius</label>
+            <label><input type="radio" name="q6" value="d"> radius-border</label>
+            <div class="answer">Correct Answer: C — border-radius</div>
+        </div>
+
+        <div class="question" data-answer="a">
+            <h3>7. Which property changes the font size?</h3>
+            <label><input type="radio" name="q7" value="a"> font-size</label>
+            <label><input type="radio" name="q7" value="b"> text-size</label>
+            <label><input type="radio" name="q7" value="c"> size</label>
+            <label><input type="radio" name="q7" value="d"> font-height</label>
+            <div class="answer">Correct Answer: A — font-size</div>
+        </div>
+
+        <div class="question" data-answer="d">
+            <h3>8. Which property makes text bold?</h3>
+            <label><input type="radio" name="q8" value="a"> font-style</label>
+            <label><input type="radio" name="q8" value="b"> text-bold</label>
+            <label><input type="radio" name="q8" value="c"> font-bold</label>
+            <label><input type="radio" name="q8" value="d"> font-weight</label>
+            <div class="answer">Correct Answer: D — font-weight</div>
+        </div>
+
+        <div class="question" data-answer="b">
+            <h3>9. Which property is used to choose a font?</h3>
+            <label><input type="radio" name="q9" value="a"> font-type</label>
+            <label><input type="radio" name="q9" value="b"> font-family</label>
+            <label><input type="radio" name="q9" value="c"> text-family</label>
+            <label><input type="radio" name="q9" value="d"> family</label>
+            <div class="answer">Correct Answer: B — font-family</div>
+        </div>
+
+        <div class="question" data-answer="c">
+            <h3>10. Which property aligns text to the center?</h3>
+            <label><input type="radio" name="q10" value="a"> align-text</label>
+            <label><input type="radio" name="q10" value="b"> center</label>
+            <label><input type="radio" name="q10" value="c"> text-align</label>
+            <label><input type="radio" name="q10" value="d"> text-center</label>
+            <div class="answer">Correct Answer: C — text-align</div>
+        </div>
+
+        <div class="question" data-answer="a">
+            <h3>11. Which property adds an image as a background?</h3>
+            <label><input type="radio" name="q11" value="a"> background-image</label>
+            <label><input type="radio" name="q11" value="b"> image-background</label>
+            <label><input type="radio" name="q11" value="c"> bg-image</label>
+            <label><input type="radio" name="q11" value="d"> background-picture</label>
+            <div class="answer">Correct Answer: A — background-image</div>
+        </div>
+
+        <div class="question" data-answer="d">
+            <h3>12. Which value makes a background image cover the element?</h3>
+            <label><input type="radio" name="q12" value="a"> full</label>
+            <label><input type="radio" name="q12" value="b"> 100%</label>
+            <label><input type="radio" name="q12" value="c"> contain</label>
+            <label><input type="radio" name="q12" value="d"> cover</label>
+            <div class="answer">Correct Answer: D — cover</div>
+        </div>
+
+        <div class="question" data-answer="b">
+            <h3>13. Which property controls the position of a background image?</h3>
+            <label><input type="radio" name="q13" value="a"> image-position</label>
+            <label><input type="radio" name="q13" value="b"> background-position</label>
+            <label><input type="radio" name="q13" value="c"> position-image</label>
+            <label><input type="radio" name="q13" value="d"> background-place</label>
+            <div class="answer">Correct Answer: B — background-position</div>
+        </div>
+
+        <div class="question" data-answer="c">
+            <h3>14. Which property prevents a background image from repeating?</h3>
+            <label><input type="radio" name="q14" value="a"> image-repeat: none</label>
+            <label><input type="radio" name="q14" value="b"> background: no</label>
+            <label><input type="radio" name="q14" value="c"> background-repeat: no-repeat</label>
+            <label><input type="radio" name="q14" value="d"> repeat: none</label>
+            <div class="answer">Correct Answer: C — background-repeat: no-repeat</div>
+        </div>
+
+        <div class="question" data-answer="a">
+            <h3>15. Which declaration turns an element into a Grid container?</h3>
+            <label><input type="radio" name="q15" value="a"> display: grid</label>
+            <label><input type="radio" name="q15" value="b"> grid: display</label>
+            <label><input type="radio" name="q15" value="c"> display: flex-grid</label>
+            <label><input type="radio" name="q15" value="d"> grid-display: on</label>
+            <div class="answer">Correct Answer: A — display: grid</div>
+        </div>
+
+        <div class="question" data-answer="d">
+            <h3>16. In CSS Grid, the element with display: grid is called the...</h3>
+            <label><input type="radio" name="q16" value="a"> sibling</label>
+            <label><input type="radio" name="q16" value="b"> selector</label>
+            <label><input type="radio" name="q16" value="c"> grandchild</label>
+            <label><input type="radio" name="q16" value="d"> parent/container</label>
+            <div class="answer">Correct Answer: D — parent/container</div>
+        </div>
+
+        <div class="question" data-answer="b">
+            <h3>17. The elements directly inside a Grid parent are called...</h3>
+            <label><input type="radio" name="q17" value="a"> selectors</label>
+            <label><input type="radio" name="q17" value="b"> grid children</label>
+            <label><input type="radio" name="q17" value="c"> properties</label>
+            <label><input type="radio" name="q17" value="d"> values</label>
+            <div class="answer">Correct Answer: B — grid children</div>
+        </div>
+
+        <div class="question" data-answer="c">
+            <h3>18. Which property defines the columns in Grid?</h3>
+            <label><input type="radio" name="q18" value="a"> grid-columns</label>
+            <label><input type="radio" name="q18" value="b"> columns-grid</label>
+            <label><input type="radio" name="q18" value="c"> grid-template-columns</label>
+            <label><input type="radio" name="q18" value="d"> template-columns</label>
+            <div class="answer">Correct Answer: C — grid-template-columns</div>
+        </div>
+
+        <div class="question" data-answer="a">
+            <h3>19. What does 1fr 1fr mean?</h3>
+            <label><input type="radio" name="q19" value="a"> Two equal columns</label>
+            <label><input type="radio" name="q19" value="b"> Two rows</label>
+            <label><input type="radio" name="q19" value="c"> One column</label>
+            <label><input type="radio" name="q19" value="d"> One row</label>
+            <div class="answer">Correct Answer: A — Two equal columns</div>
+        </div>
+
+        <div class="question" data-answer="d">
+            <h3>20. What does 1fr 2fr create?</h3>
+            <label><input type="radio" name="q20" value="a"> Two equal columns</label>
+            <label><input type="radio" name="q20" value="b"> Three columns</label>
+            <label><input type="radio" name="q20" value="c"> Two equal rows</label>
+            <label><input type="radio" name="q20" value="d"> First column half the size of second</label>
+            <div class="answer">Correct Answer: D — First column half the size of second</div>
+        </div>
+
+        <div class="question" data-answer="b">
+            <h3>21. Which property creates space between Grid items?</h3>
+            <label><input type="radio" name="q21" value="a"> space</label>
+            <label><input type="radio" name="q21" value="b"> gap</label>
+            <label><input type="radio" name="q21" value="c"> grid-space</label>
+            <label><input type="radio" name="q21" value="d"> item-gap-only</label>
+            <div class="answer">Correct Answer: B — gap</div>
+        </div>
+
+        <div class="question" data-answer="c">
+            <h3>22. Which property defines Grid rows?</h3>
+            <label><input type="radio" name="q22" value="a"> grid-rows</label>
+            <label><input type="radio" name="q22" value="b"> rows-template</label>
+            <label><input type="radio" name="q22" value="c"> grid-template-rows</label>
+            <label><input type="radio" name="q22" value="d"> template-grid-rows</label>
+            <div class="answer">Correct Answer: C — grid-template-rows</div>
+        </div>
+
+        <div class="question" data-answer="a">
+            <h3>23. Which property can control how an item starts in a Grid column?</h3>
+            <label><input type="radio" name="q23" value="a"> grid-column</label>
+            <label><input type="radio" name="q23" value="b"> column-start-only</label>
+            <label><input type="radio" name="q23" value="c"> grid-place</label>
+            <label><input type="radio" name="q23" value="d"> column-grid</label>
+            <div class="answer">Correct Answer: A — grid-column</div>
+        </div>
+
+        <div class="question" data-answer="d">
+            <h3>24. Which property can control an item's Grid row placement?</h3>
+            <label><input type="radio" name="q24" value="a"> row-grid</label>
+            <label><input type="radio" name="q24" value="b"> grid-position-row</label>
+            <label><input type="radio" name="q24" value="c"> row-place</label>
+            <label><input type="radio" name="q24" value="d"> grid-row</label>
+            <div class="answer">Correct Answer: D — grid-row</div>
+        </div>
+
+        <div class="question" data-answer="b">
+            <h3>25. Which property changes the text style to italic?</h3>
+            <label><input type="radio" name="q25" value="a"> font-weight</label>
+            <label><input type="radio" name="q25" value="b"> font-style</label>
+            <label><input type="radio" name="q25" value="c"> text-style</label>
+            <label><input type="radio" name="q25" value="d"> italic-text</label>
+            <div class="answer">Correct Answer: B — font-style</div>
+        </div>
+
+        <div class="question" data-answer="c">
+            <h3>26. Which property changes the font color to blue?</h3>
+            <label><input type="radio" name="q26" value="a"> font-color: blue</label>
+            <label><input type="radio" name="q26" value="b"> text-color: blue</label>
+            <label><input type="radio" name="q26" value="c"> color: blue</label>
+            <label><input type="radio" name="q26" value="d"> blue: color</label>
+            <div class="answer">Correct Answer: C — color: blue</div>
+        </div>
+
+        <div class="question" data-answer="a">
+            <h3>27. Which property controls the space between the border and content?</h3>
+            <label><input type="radio" name="q27" value="a"> padding</label>
+            <label><input type="radio" name="q27" value="b"> margin</label>
+            <label><input type="radio" name="q27" value="c"> gap</label>
+            <label><input type="radio" name="q27" value="d"> spacing</label>
+            <div class="answer">Correct Answer: A — padding</div>
+        </div>
+
+        <div class="question" data-answer="d">
+            <h3>28. Which property controls the space outside the border?</h3>
+            <label><input type="radio" name="q28" value="a"> padding</label>
+            <label><input type="radio" name="q28" value="b"> border-space</label>
+            <label><input type="radio" name="q28" value="c"> outside-space</label>
+            <label><input type="radio" name="q28" value="d"> margin</label>
+            <div class="answer">Correct Answer: D — margin</div>
+        </div>
+
+        <div class="question" data-answer="b">
+            <h3>29. Which property changes the distance between Grid rows and columns?</h3>
+            <label><input type="radio" name="q29" value="a"> margin</label>
+            <label><input type="radio" name="q29" value="b"> gap</label>
+            <label><input type="radio" name="q29" value="c"> padding</label>
+            <label><input type="radio" name="q29" value="d"> border</label>
+            <div class="answer">Correct Answer: B — gap</div>
+        </div>
+
+        <div class="question" data-answer="c">
+            <h3>30. Which CSS property can make a background image fill its container without stretching it?</h3>
+            <label><input type="radio" name="q30" value="a"> background-position: center</label>
+            <label><input type="radio" name="q30" value="b"> background-repeat: no-repeat</label>
+            <label><input type="radio" name="q30" value="c"> background-size: cover</label>
+            <label><input type="radio" name="q30" value="d"> background-image: cover</label>
+            <div class="answer">Correct Answer: C — background-size: cover</div>
+        </div>
+
+        <button type="button" onclick="submitTest()">Submit Test</button>
+    </form>
+</div>
+
+<script>
+function submitTest() {
+    const questions = document.querySelectorAll(".question");
+    let score = 0;
+    let correct = 0;
+    let wrong = 0;
+    let unattempted = 0;
+
+    questions.forEach(question => {
+        const correctAnswer = question.dataset.answer;
+        const selected = question.querySelector("input:checked");
+        const labels = question.querySelectorAll("label");
+        const answerBox = question.querySelector(".answer");
+
+        labels.forEach(label => {
+            label.classList.remove("correct", "wrong");
+        });
+
+        if (!selected) {
+            unattempted++;
+        } else if (selected.value === correctAnswer) {
+            score += 1;
+            correct++;
+            selected.parentElement.classList.add("correct");
+        } else {
+            score -= 1;
+            wrong++;
+            selected.parentElement.classList.add("wrong");
+
+            labels.forEach(label => {
+                const input = label.querySelector("input");
+                if (input.value === correctAnswer) {
+                    label.classList.add("correct");
+                }
+            });
+        }
+
+        answerBox.style.display = "block";
+    });
+
+    const result = document.getElementById("result");
+
+    result.innerHTML = `
+        <h2>Test Result</h2>
+        <p><strong>Score: ${score} / 30</strong></p>
+        <p>Correct: ${correct} | Wrong: ${wrong} | Unattempted: ${unattempted}</p>
+        <p>Each correct answer = +1 | Each wrong answer = -1</p>
+    `;
+
+    result.style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+</script>
+
+</body>
+</html>
+'''
+
+path = Path("/mnt/data/css_mcq_test.html")
+path.write_text(html, encoding="utf-8")
+print(f"Created: {path}")
